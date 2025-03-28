@@ -1,0 +1,47 @@
+<?xml version="1.0" ?>
+<robot name="wheeltec_robot" xmlns:xacro="http://ros.org/wiki/xacro">
+    <!-- Define robot constants -->
+    <xacro:property name="wheel_radius" value="0.1"/>
+    <xacro:property name="wheel_length" value="0.04"/>
+    <xacro:property name="wheel_color" value="0 0 0 1"/>
+
+    <!-- Base link -->
+    <link name="base_link">
+        <visual>
+            <origin xyz=" 0 0 0.15" rpy="0 0 0" />
+            <geometry>
+                <box size="0.554 0.500 0.1"/>
+            </geometry>
+            <material name="white">
+                <color rgba="1 1 1 1"/>
+            </material>
+        </visual>
+    </link>
+
+    <!-- Define a macro to create a wheel with a joint -->
+    <xacro:macro name="create_wheel" params="wheel_name x_pos y_pos">
+        <link name="${wheel_name}">
+            <visual>
+                <origin xyz="0 0 0" rpy="0 0 0" />
+                <geometry>
+                    <cylinder radius="${wheel_radius}" length="${wheel_length}"/>
+                </geometry>
+                <material name="black">
+                    <color rgba="${wheel_color}"/>
+                </material>
+            </visual>
+        </link>
+        <joint name="${wheel_name}_joint" type="continuous">
+            <origin xyz="${x_pos} ${y_pos} 0.1" rpy="1.57 0 0"/>
+            <parent link="base_link"/>
+            <child link="${wheel_name}"/>
+            <axis xyz="0 1 0"/>
+        </joint>
+    </xacro:macro>
+
+    <!-- Create the wheels using the macro -->
+    <xacro:create_wheel wheel_name="left_wheel_link" x_pos="-0.201" y_pos="0.295"/>
+    <xacro:create_wheel wheel_name="right_wheel_link" x_pos="-0.201" y_pos="-0.295"/>
+    <xacro:create_wheel wheel_name="left_front_link" x_pos="0.201" y_pos="0.295"/>
+    <xacro:create_wheel wheel_name="right_front_link" x_pos="0.201" y_pos="-0.295"/>
+</robot>
