@@ -1,0 +1,54 @@
+<?xml version="1.0" ?>
+<robot name="wheeltec_robot" xmlns:xacro="http://ros.org/wiki/xacro">
+    <!-- Include Mecanum wheel macro -->
+    <xacro:include filename="$(find fuji_mecanum)/urdf/mecanum_wheel_macro.xacro" />
+
+    <!-- Base link -->
+    <link name="base_link">
+        <visual>
+            <origin xyz=" 0 0 0.15" rpy="0 0 0" />
+            <geometry>
+                <box size="0.554 0.500 0.1"/>
+            </geometry>
+            <material name="white">
+                <color rgba="1 1 1 1"/>
+            </material>
+        </visual>
+    </link>
+
+    <!-- Add Mecanum wheels -->
+    <xacro:mecanum_wheel name="front_right" side="1" interface="hardware_interface/EffortJointInterface" />
+    <xacro:mecanum_wheel name="front_left" side="-1" interface="hardware_interface/EffortJointInterface" />
+    <xacro:mecanum_wheel name="rear_right" side="1" interface="hardware_interface/EffortJointInterface" />
+    <xacro:mecanum_wheel name="rear_left" side="-1" interface="hardware_interface/EffortJointInterface" />
+
+    <!-- Wheel Joints -->
+    <joint name="front_right_joint" type="continuous">
+        <origin xyz="0.201 -0.295 0.1" rpy="0 0 0"/>
+        <parent link="base_link"/>
+        <child link="front_right_wheel_link"/>
+        <axis xyz="0 1 0"/>
+    </joint>
+
+    <joint name="front_left_joint" type="continuous">
+        <origin xyz="0.201 0.295 0.1" rpy="0 0 0"/>
+        <parent link="base_link"/>
+        <child link="front_left_wheel_link"/>
+        <axis xyz="0 1 0"/>
+    </joint>
+
+    <joint name="rear_right_joint" type="continuous">
+        <origin xyz="-0.201 -0.295 0.1" rpy="0 0 0"/>
+        <parent link="base_link"/>
+        <child link="rear_right_wheel_link"/>
+        <axis xyz="0 1 0"/>
+    </joint>
+
+    <joint name="rear_left_joint" type="continuous">
+        <origin xyz="-0.201 0.295 0.1" rpy="0 0 0"/>
+        <parent link="base_link"/>
+        <child link="rear_left_wheel_link"/>
+        <axis xyz="0 1 0"/>
+    </joint>
+</robot>
+

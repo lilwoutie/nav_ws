@@ -15,7 +15,8 @@ def generate_launch_description():
     pkg_share = get_package_share_directory('mecabotX_description')
     
     # Construct the path to the URDF file
-    default_model_path = os.path.join(pkg_share, 'src', 'description', 'mecabotX_description.urdf')
+    #default_model_path = os.path.join(pkg_share, 'src', 'description', 'mecabotX_description.urdf')
+    default_model_path = os.path.join(pkg_share, 'src', 'description', 'mecabot_wmecwheels.xacro')
     
     default_rviz_config_path = os.path.join(pkg_share, 'rviz', 'config.rviz')
 
